@@ -22,21 +22,19 @@ model User {
 
   questions Question[]
 
-  @@map("users") // Renaming from User to user
+  @@map("users") // Renaming from User to users
 }
 
 model Question {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
-  slug      String   @unique
+  slug      String    @unique
   content   String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime? @updatedAt @map("updated_at")
-  authorId String @map("author_id")
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt @map("updated_at") // @updatedAt prisma flag will automatically set the field to the current timestamp whenever the record is updated.
+  authorId  String    @map("author_id")
 
-  author User @relation(fields: [authorId], references:[id])
+  author User @relation(fields: [authorId], references: [id])
 
   @@map("questions")
 }
-
-
