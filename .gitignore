@@ -17,6 +17,8 @@ lerna-debug.log*
 
 /data
 
+*.pem
+
 # Tests
 /coverage
 /.nyc_output

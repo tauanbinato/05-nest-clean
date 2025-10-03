@@ -4,14 +4,20 @@ import { CreateAccountController } from
   './controllers/create-account.controller'
 import { ConfigModule } from '@nestjs/config'
 import { envSchema } from './env'
+import { AuthModule } from './auth/auth.module'
+import { AuthenticateController } from './controllers/authenticate.controller'
 
 @Module({
   // ConfigModule expose a ConfigService under the hood
-  imports: [ConfigModule.forRoot({
-    validate: (config) => envSchema.parse(config),
-    isGlobal: true,
-  })],
-  controllers: [CreateAccountController],
+  imports: [
+    ConfigModule.forRoot({
+      validate: (config) => envSchema.parse(config),
+      isGlobal: true,
+    }),
+    AuthModule,
+  ],
+
+  controllers: [CreateAccountController, AuthenticateController],
   providers: [PrismaService],
 })
 export class AppModule { }
